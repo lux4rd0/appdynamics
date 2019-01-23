@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  docker-machine-agent:
+    build: .
+    container_name: docker-db-agent
+    image: appdynamics/docker-db-agent
+    network_mode: "host"
+    environment:
+      - APPDYNAMICS_AGENT_ACCOUNT_NAME=customer1
+      - APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY=
+      - APPDYNAMICS_CONTROLLER_HOST_NAME=
+      - APPDYNAMICS_CONTROLLER_SSL_ENABLED=
+      - APPDYNAMICS_CONTROLLER_PORT=
