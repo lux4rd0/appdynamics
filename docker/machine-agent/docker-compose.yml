@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  docker-machine-agent:
+    build: .
+    container_name: docker-machine-agent
+    image: appdynamics/docker-machine-agent
+    network_mode: "host"
+    environment:
+      - APPDYNAMICS_AGENT_ACCOUNT_NAME=
+      - APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY=
+      - APPDYNAMICS_CONTROLLER_HOST_NAME=
+      - APPDYNAMICS_CONTROLLER_SSL_ENABLED=
+      - APPDYNAMICS_CONTROLLER_PORT=
+      - MACHINE_AGENT_PROPERTIES=-Dappdynamics.sim.enabled=true -Dappdynamics.docker.enabled=true
+    volumes:
+      - /:/hostroot:ro
+      - /var/run/docker.sock:/var/run/docker.sock
