@@ -1,0 +1,24 @@
+FROM openjdk:8-jre-slim
+
+MAINTAINER dave.schmid@appdynamics.com
+
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get install -y apt-utils iproute2 sysstat procps binutils vim curl unzip && \
+    apt-get clean
+
+RUN mkdir -p /opt/appdynamics
+
+RUN mkdir -p /opt/appdynamics/AppServerAgent
+
+COPY config-exporter-4.5.12.5-BETA.war /opt/appdynamics
+
+COPY AppServerAgent-4.5.14.27768.zip /
+
+COPY startup.sh /opt/appdynamics/startup.sh
+
+RUN chmod +x /opt/appdynamics/startup.sh
+
+RUN unzip -oq AppServerAgent-4.5.14.27768.zip -d /opt/appdynamics/AppServerAgent
+
+CMD "/opt/appdynamics/startup.sh"
